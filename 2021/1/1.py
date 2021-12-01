@@ -8,9 +8,9 @@ with open(INPUT) as file:
     input_values = [int(line.rstrip()) for line in file]
 
 
-def part1(values):
+def part1(values: list) -> int:
     """Identify the amount of increases in values compared to previous."""
-    increases = 0
+    increases: int  = 0
 
     for i, value in enumerate(values):
         if i != 0 and value > values[i-1]:
@@ -19,10 +19,10 @@ def part1(values):
     return increases
 
 
-def part2(values):
+def part2(values: list) -> int:
     """Identify increases in 3-group window compared to last 3-group window."""
-    window = []
-    increases = 0
+    window: list[int] = []
+    increases: int = 0
 
     for i, value in enumerate(values):
 
@@ -35,5 +35,5 @@ def part2(values):
     return increases
 
 
-print(f"part one increases: {part1(input_values)}")
-print(f"part two increases: {part2(input_values)}")
+print(f"Part one result: {part1(input_values)}")
+print(f"Part two result: {part2(input_values)}")
