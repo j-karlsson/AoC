@@ -10,7 +10,7 @@ with open(INPUT) as file:
 
 def part1(values: list) -> int:
     """Identify the amount of increases in values compared to previous."""
-    increases: int  = 0
+    increases: int = 0
 
     for i, value in enumerate(values):
         if i != 0 and value > values[i-1]:
