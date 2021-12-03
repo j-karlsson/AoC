@@ -39,26 +39,15 @@ def find_values(values, position, byte):
     zeros = 0
 
     for line in values:
-        if int(line[position]):
+        if line[position] == "1":
             ones += 1
         else:
             zeros += 1
 
-    for i, line in enumerate(values):
-
-        if byte:
-            if ones >= zeros and line[position] == "1":
-                out_values.append(values[i])
-
-            if ones < zeros and line[position] == "0":
-                out_values.append(values[i])
-            continue
-
-        if ones < zeros and line[position] == "1":
-            out_values.append(values[i])
-
-        if ones >= zeros and line[position] == "0":
-            out_values.append(values[i])
+    if byte:
+        out_values = [line for line in values if (ones >= zeros and line[position] == "1") or (ones < zeros and line[position] == "0") ]
+    else:
+        out_values = [line for line in values if (ones < zeros and line[position] == "1") or (ones >= zeros and line[position] == "0") ]
 
     position += 1
     return find_values(out_values, position, byte)
