@@ -64,7 +64,7 @@ def find_values(values, position, byte):
     return find_values(out_values, position, byte)
 
 
-def part2(values, positions):
+def part2(values):
     """Part2."""
     oxygen = find_values(values, 0, 1)
     co2 = find_values(values, 0, 0)
@@ -73,4 +73,4 @@ def part2(values, positions):
 
 
 print(f"part one: {part1(input_values, len(input_values[0]))}")
-print(f"part two: {part2(input_values, len(input_values[0]))}")
+print(f"part two: {part2(input_values)}")
