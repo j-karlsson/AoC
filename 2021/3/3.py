@@ -8,11 +8,12 @@ with open(INPUT) as file:
     input_values = [line.rstrip() for line in file]
 
 
-def part1(values, positions):
+def part1(values: list) -> int:
     """Part1."""
     gamma = ""
     epsilon = ""
-    for position in range(0, positions):
+
+    for position in range(0, len(values[0])):
         sum_position = 0
 
         for line in values:
@@ -29,12 +30,11 @@ def part1(values, positions):
     return int(gamma, 2) * int(epsilon, 2)
 
 
-def find_values(values, position, byte):
+def find_values(values: list, byte: bool, position: int = 0) -> str:
     """Recursive loop function for part 2."""
     if len(values) == 1:
         return values[0]
 
-    out_values = []
     ones = 0
     zeros = 0
 
@@ -45,21 +45,20 @@ def find_values(values, position, byte):
             zeros += 1
 
     if byte:
-        out_values = [line for line in values if (ones >= zeros and line[position] == "1") or (ones < zeros and line[position] == "0") ]
+        out_values = [line for line in values if (ones >= zeros and line[position] == "1") or (ones < zeros and line[position] == "0")]
     else:
-        out_values = [line for line in values if (ones < zeros and line[position] == "1") or (ones >= zeros and line[position] == "0") ]
+        out_values = [line for line in values if (ones < zeros and line[position] == "1") or (ones >= zeros and line[position] == "0")]
 
-    position += 1
-    return find_values(out_values, position, byte)
+    return find_values(out_values, byte, position+1)
 
 
-def part2(values):
+def part2(values: list) -> int:
     """Part2."""
-    oxygen = find_values(values, 0, 1)
-    co2 = find_values(values, 0, 0)
+    oxygen = find_values(values, True)
+    co2 = find_values(values, False)
 
     return int(oxygen, 2) * int(co2, 2)
 
 
-print(f"part one: {part1(input_values, len(input_values[0]))}")
+print(f"part one: {part1(input_values)}")
 print(f"part two: {part2(input_values)}")
