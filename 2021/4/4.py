@@ -4,7 +4,9 @@ import sys
 
 INPUT = os.path.join(sys.path[0], 'input.txt')
 
-
+bingonum = None
+card = []
+cards = []
 with open(INPUT) as file:
     bingonum = [int(number) for number in file.readline().rstrip().split(",")]
     cards = []
