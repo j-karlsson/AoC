@@ -1,4 +1,4 @@
-"""Advent of code 2021 - Day 5."""
+"""Advent of code 2021 - Day 8."""
 import os
 import sys
 
