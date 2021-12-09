@@ -58,6 +58,7 @@ def _decode(line):
     return key
 
 
+
 def _signal_to_num(key):
     res = {}
     for k, v in key.items():
