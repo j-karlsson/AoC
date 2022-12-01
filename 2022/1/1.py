@@ -4,11 +4,11 @@ import sys
 
 INPUT = os.path.join(sys.path[0], 'input.txt')
 
-
 with open(INPUT) as file:
     input = file.read()
 
 input_values = [value.split('\n') for value in input.split('\n\n')]
+
 
 def part1(values):
     """Part1 - Find the elve with the greatest sum of calories."""
@@ -29,6 +29,7 @@ def part2(values):
         sums.append(sum_elve)
     sums.sort(reverse=True)
     return  sum(sums[:3])
+
 
 print(f"part one: {part1(input_values)}")
 print(f"part two: {part2(input_values)}")
