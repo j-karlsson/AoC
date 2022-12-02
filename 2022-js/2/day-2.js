@@ -5,8 +5,7 @@ const DAY = 2
 const FILE = 'input'
 
 const VALUE = { "rock": 1, "paper": 2, "scissors": 3 }
-const TYPE_P1 = { 'A': "rock", 'B': "paper", 'C': "scissors" }
-const TYPE_P2 = { 'X': "rock", 'Y': "paper", 'Z': "scissors" }
+const TYPE = { 'A': "rock", 'B': "paper", 'C': "scissors", 'X': "rock", 'Y': "paper", 'Z': "scissors" }
 
 function syncReadFile(filename) {
     let contents = readFileSync(filename, 'utf-8')
@@ -17,9 +16,9 @@ function syncReadFile(filename) {
 
 
 function playMatch_v1(row) {
-    let p1 = TYPE_P1[row[0]]
-    let p2 = TYPE_P2[row[1]]
-    let p2_points = VALUE[TYPE_P2[row[1]]]
+    let p1 = TYPE[row[0]]
+    let p2 = TYPE[row[1]]
+    let p2_points = VALUE[p2]
 
     // Draw
     if (p1 == p2) return p2_points + 3
@@ -35,21 +34,25 @@ function playMatch_v1(row) {
 
 
 function playMatch_v2(row) {
-    let p1 = TYPE_P1[row[0]]
-    let p1_points = VALUE[TYPE_P1[row[0]]]
+    let p1 = TYPE[row[0]]
+    let p1_points = VALUE[p1]
 
     // Draw
     if (row[1] == "Y") return p1_points + 3
 
     // Lose
-    if (p1 == 'rock' && row[1] == "X") return VALUE["scissors"]
-    if (p1 == 'paper' && row[1] == "X") return VALUE["rock"]
-    if (p1 == 'scissors' && row[1] == "X") return VALUE["paper"]
+    if (row[1] == "X") {
+        if (p1 == 'rock') return VALUE["scissors"]
+        if (p1 == 'paper') return VALUE["rock"]
+        if (p1 == 'scissors') return VALUE["paper"]
+    }
 
     // Win
-    if (p1 == 'rock' && row[1] == "Z") return VALUE["paper"] + 6
-    if (p1 == 'paper' && row[1] == "Z") return VALUE["scissors"] + 6
-    if (p1 == 'scissors' && row[1] == "Z") return VALUE["rock"] + 6
+    if (row[1] == "Z") {
+        if (p1 == 'rock') return VALUE["paper"] + 6
+        if (p1 == 'paper') return VALUE["scissors"] + 6
+        if (p1 == 'scissors') return VALUE["rock"] + 6
+    }
 }
 
 
@@ -59,7 +62,6 @@ function part1(input) {
     for (let row of input) {
         score += playMatch_v1(row)
     }
-
     return score
 }
 
@@ -69,9 +71,7 @@ function part2(input) {
     for (let row of input) {
         score += playMatch_v2(row)
     }
-
     return score
-
 }
 
 
@@ -86,7 +86,6 @@ function main(year, day, file) {
     console.log(`Results part 2: ${part2(input)}`)
     // 12
     // 12989
-
 }
 
 main(YEAR, DAY, FILE)
