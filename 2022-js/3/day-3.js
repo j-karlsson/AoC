@@ -4,25 +4,36 @@ const YEAR = 2022
 const DAY = 3
 const FILE = "input"
 
-const VALUE = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
 function syncReadFile(filename) {
 	let contents = readFileSync(filename, "utf-8")
 		.split(/\r?\n/)
 	return contents
 }
 
+function getUniqueChars(characters){
+	// Gives a set with unique characters from inputstring.
+	let uniqueset = new Set(characters.split(""))
+	return (uniqueset)
+}
+
+function getLetterScore(letter) {
+	// Lowercase item types a through z have priorities 1 through 26.
+	// Uppercase item types A through Z have priorities 27 through 52.
+	if(letter.toUpperCase() == letter) return letter.codePointAt() - 38
+	return letter.codePointAt() - 96
+}
 
 function part1(input) {
 	input = input.map((value) => [value.slice(0, value.length / 2), value.slice(value.length / 2)])
 	let score = 0
 	for (let row of input) {
-		for (let letter = 0; letter < VALUE.length; letter++) {
-			let char = VALUE[letter]
-			if (row[0].indexOf(char) > -1 && row[1].indexOf(char) > -1) {
-				score += letter + 1
+		let uniqueset = getUniqueChars(row[0])
+
+		uniqueset.forEach(letter => {
+			if(row[1].indexOf(letter) > -1) {
+				score += getLetterScore(letter)
 			}
-		}
+		})
 	}
 	return score
 }
@@ -30,14 +41,13 @@ function part1(input) {
 function part2(input) {
 	let score = 0
 	for (let groupid = 0; groupid < input.length; groupid += 3) {
-		for (let letter = 0; letter < VALUE.length; letter++) {
-			let char = VALUE[letter]
-			if (input[groupid].indexOf(char) > -1 &&
-				input[groupid + 1].indexOf(char) > -1 &&
-				input[groupid + 2].indexOf(char) > -1) {
-				score += letter + 1
+		let uniqueset = getUniqueChars(input[groupid])
+		uniqueset.forEach(letter => {
+			if(input[groupid+1].indexOf(letter) > -1 &&
+			   input[groupid+2].indexOf(letter) > -1) {
+			   score += getLetterScore(letter)
 			}
-		}
+		})
 	}
 	return score
 }
