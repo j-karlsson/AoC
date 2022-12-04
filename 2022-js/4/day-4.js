@@ -4,51 +4,55 @@ const YEAR = 2022
 const DAY = 4
 const FILE = "input"
 
+// Read input data and split by line breaks, commas and then by dash. Format as number.
 function syncReadFile(filename) {
 	let contents = readFileSync(filename, "utf-8")
 		.split(/\r?\n/)
-		.map((value) => value.split(","))
+		.map(v1 => v1.split(",")
+			.map(v2 => (v2.split('-')
+				.map(Number))))
+
 	return contents
 }
 
-function getFullRange(from,to){
-	let range=[]
-	for(let i = from; i<= to;i++){
+// Create array of numbers ranging from - to given inputs.
+function getRange(from_val, to_val) {
+	let range = []
+	for (let i = from_val; i <= to_val; i++) {
 		range.push(i)
 	}
+
 	return range
 }
 
 function part1(input) {
 	let score = 0
-	for(let row of input){
-		let p1 = row[0].split("-")
-		let p2 = row[1].split("-")
+	for (let row of input) {
 
-		let p1full = getFullRange(parseInt(p1[0]),parseInt(p1[1]))
-		let p2full = getFullRange(parseInt(p2[0]),parseInt(p2[1]))
+		let p1full = getRange(row[0][0], row[0][1])
+		let p2full = getRange(row[1][0], row[1][1])
 
 		let p1match = p1full.filter(number => p2full.includes(number))
 		let p2match = p2full.filter(number => p1full.includes(number))
 
-		if(p1match.length == p1full.length || p2match.length == p2full.length) score ++
+		// Full overlap from one of the two ranges.
+		if (p1match.length == p1full.length || p2match.length == p2full.length) score++
 	}
 	return score
 }
 
 function part2(input) {
 	let score = 0
-	for(let row of input){
-		let p1 = row[0].split("-")
-		let p2 = row[1].split("-")
+	for (let row of input) {
 
-		let p1full = getFullRange(parseInt(p1[0]),parseInt(p1[1]))
-		let p2full = getFullRange(parseInt(p2[0]),parseInt(p2[1]))
+		let p1full = getRange(row[0][0], row[0][1])
+		let p2full = getRange(row[1][0], row[1][1])
 
 		let p1match = p1full.filter(number => p2full.includes(number))
 		let p2match = p2full.filter(number => p1full.includes(number))
 
-		if(p1match.length >0 || p2match.length >0 ) score ++
+		// Any overlapping numbers in the two ranges.
+		if (p1match.length || p2match.length) score++
 	}
 	return score
 }
