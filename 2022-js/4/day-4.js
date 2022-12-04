@@ -32,11 +32,10 @@ function part1(input) {
 		let p1full = getRange(row[0][0], row[0][1])
 		let p2full = getRange(row[1][0], row[1][1])
 
-		let p1matches = p1full.filter(number => p2full.includes(number)).length
-		let p2matches = p2full.filter(number => p1full.includes(number)).length
+		// Check if the full left range exist in the right, or the full right in the left range.
+		p1full.filter(number => p2full.includes(number)).length == p1full.length ||
+		p2full.filter(number => p1full.includes(number)).length == p2full.length ? score ++ : false
 
-		// Full overlap from one of the two ranges.
-		if (p1matches == p1full.length || p2matches == p2full.length) score++
 	}
 	return score
 }
@@ -48,11 +47,9 @@ function part2(input) {
 		let p1full = getRange(row[0][0], row[0][1])
 		let p2full = getRange(row[1][0], row[1][1])
 
-		let p1matches = p1full.filter(number => p2full.includes(number)).length
-		let p2matches = p2full.filter(number => p1full.includes(number)).length
+		// Check if any of the numbers in the left range overlap with right range.
+		p1full.filter(number => p2full.includes(number)).length ? score ++ : false
 
-		// Any overlapping numbers in the two ranges.
-		if (p1matches || p2matches) score++
 	}
 	return score
 }
