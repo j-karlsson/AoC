@@ -28,8 +28,8 @@ function part1(input) {
 		let p1full = getFullRange(parseInt(p1[0]),parseInt(p1[1]))
 		let p2full = getFullRange(parseInt(p2[0]),parseInt(p2[1]))
 
-		let p1match = p1full.filter(number => p2full.indexOf(number) > -1)
-		let p2match = p2full.filter(number => p1full.indexOf(number) > -1)
+		let p1match = p1full.filter(number => p2full.includes(number))
+		let p2match = p2full.filter(number => p1full.includes(number))
 
 		if(p1match.length == p1full.length || p2match.length == p2full.length) score ++
 	}
@@ -45,8 +45,8 @@ function part2(input) {
 		let p1full = getFullRange(parseInt(p1[0]),parseInt(p1[1]))
 		let p2full = getFullRange(parseInt(p2[0]),parseInt(p2[1]))
 
-		let p1match = p1full.filter(number => p2full.indexOf(number) > -1)
-		let p2match = p2full.filter(number => p1full.indexOf(number) > -1)
+		let p1match = p1full.filter(number => p2full.includes(number))
+		let p2match = p2full.filter(number => p1full.includes(number))
 
 		if(p1match.length >0 || p2match.length >0 ) score ++
 	}
