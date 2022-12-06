@@ -16,11 +16,15 @@ function part(input, chars) {
 
   for (index = 0;index < input.length; index++) {
     let uniqueChars = new Set()
+
+	// Start running from the length of expected starting point given in chars (4 or 14).
+	// Loop the number of characters back in the array and add them to the set.
     if (index > chars - 1) {
-      for (i = 0; i < chars; i++) {
-        uniqueChars.add(input[index - i])
-      }
+		for (i = 0; i < chars; i++) {
+        	uniqueChars.add(input[index - i])
+    	}
     }
+	// If the length of the set (unique values) match the given length of char we are done.
     if (uniqueChars.size == chars && result == 0) {
       result = index + 1
       break
