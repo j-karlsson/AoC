@@ -58,12 +58,10 @@ function getMoves(rawMoves) {
 function part1(input) {
 	let boxes = getTabledata(input[0])
 	let moves = getMoves(input[1])
-	
+
 	// Start moving boxes one by one.
 	for (let move of moves) {
-		let numberOfBoxes = move[0]
-		let fromStack = move[1] - 1
-		let toStack = move[2] - 1
+		let [numberOfBoxes, fromStack, toStack] = [move[0], move[1] - 1, move[2] - 1]
 
 		for (let i = 0; i < numberOfBoxes; i++) {
 			boxes[toStack].push(boxes[fromStack].pop())
@@ -86,9 +84,7 @@ function part2(input) {
 
 	// Start moving boxes many at once.
 	for (let move of moves) {
-		let numberOfBoxes = move[0]
-		let fromStack = move[1] - 1
-		let toStack = move[2] - 1
+		let [numberOfBoxes, fromStack, toStack] = [move[0], move[1] - 1, move[2] - 1]
 
 		// Concatenate existing array with removed elements.
 		boxes[toStack] = boxes[toStack].concat(
