@@ -4,7 +4,7 @@ const YEAR = 2022
 const DAY = 7
 const FILE = "input"
 
-// Read input data and split by line breaks, commas and then by dash. Format as number.
+// Read input data and split by line breaks.
 function syncReadFile(filename) {
 	let contents = readFileSync(filename, "utf-8").split(/\r?\n/)
 
